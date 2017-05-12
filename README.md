@@ -1,2 +1,2 @@
 # infrastructure
-Service infrastructure definitions
+local / production infrastructure

@@ -1,0 +1,48 @@
+version: '3'
+services:
+  elasticsearch:
+    build: ./elasticsearch/
+    networks:
+      - local_app
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+      - ./elasticsearch/config:/usr/share/elasticsearch/config
+    ports:
+      - 9200:9200
+    expose:
+      - 9300
+    ulimits:
+        nofile:
+          soft: 65536
+          hard: 65536
+  kibana:
+    image: kibana
+    networks:
+      - local_app
+    links:
+      - elasticsearch
+    ports:
+      - 5601:5601
+  mysql:
+    image: mysql:latest
+    networks:
+      - local_app
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+
+volumes:
+  es-data:
+    driver: local
+  mysql-data:
+    driver: local
+
+networks:
+  local_app:
+    driver: bridge
+
+
+
