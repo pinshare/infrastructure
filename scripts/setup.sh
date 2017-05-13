@@ -5,7 +5,7 @@ PROJ_ROOT=$(cd $(dirname $0)/..; pwd)
 echo "Creating docker images..."
 cd $PROJ_ROOT/docker && docker-compose up -d
 
-sleep 5s
+sleep 3s
 
 echo "Creating Elasticsearch mapping..."
 curl -XPUT -d @${PROJ_ROOT}/misc/elasticsearch-mapping.json http://localhost:9200/pinshelf
